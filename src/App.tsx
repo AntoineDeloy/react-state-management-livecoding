@@ -1,12 +1,13 @@
-import './App.css'
-import UseStateDive from "./useStateDiveComplete";
+import "./App.css";
+import { UseEffectComplete } from "./useEffectComplete";
+// import UseStateDive from "./useStateDiveComplete";
 
 function App() {
-
   return (
     <div>
-     <p>React hooks - Deep Dive</p>
-     <UseStateDive />
+      <h3>React hooks - Deep Dive</h3>
+      {/* <UseStateDive /> */}
+      <UseEffectComplete />
     </div>
   );
 }
