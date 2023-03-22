@@ -1,5 +1,6 @@
 import "./App.css";
 import { UseEffectComplete } from "./useEffectComplete";
+import { UseRedcuerComplete } from "./useReducerComplete";
 // import UseStateDive from "./useStateDiveComplete";
 
 function App() {
@@ -7,7 +8,8 @@ function App() {
     <div>
       <h3>React hooks - Deep Dive</h3>
       {/* <UseStateDive /> */}
-      <UseEffectComplete />
+      {/* <UseEffectComplete /> */}
+      <UseRedcuerComplete />
     </div>
   );
 }
