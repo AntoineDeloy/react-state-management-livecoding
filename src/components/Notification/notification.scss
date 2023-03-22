@@ -1,0 +1,43 @@
+.notification-container {
+	--greenbox-animation_notification:
+		fade-in 250ms ease-in forwards,
+		slide-left 0.25s ease-in forwards,
+		greenbox-slide-right 0.25s 4.5s ease-in forwards;
+
+	@keyframes greenbox-slide-right {
+		from {
+			transform:translateX(0);
+		}
+
+		to {
+			transform:translateX(125%);
+		}
+	}
+	z-index: 10;
+	&__alert-success {
+		background-color: var(--vtmn-semantic-color_background-primary);
+		color: var(--vtmn-semantic-color_content-primary);
+	}
+}
+
+.vtmn-alert_content-description {
+	margin-top: 0 !important;
+	margin-right: var(--vtmn-spacing_9);
+}
+
+.vtmn-alert::before {
+	background-color: var(--vtmn-semantic-color_background-brand-primary-reversed);
+}
+
+.vtmn-alert.show {
+	animation: var(--greenbox-animation_notification);
+}
+
+.vtmn-alert_content-title {
+	.vtmx-close-line {
+		margin-left: var(--vtmn-spacing_5);
+	}
+	.vtmx-close-line:before {
+		color: var(--vtmn-semantic-color_content-primary);
+	}
+}

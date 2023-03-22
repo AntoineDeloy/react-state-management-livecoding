@@ -1,10 +1,18 @@
 import { useEffect, useState } from "react";
+import Notification, {NotificationType} from "../components/Notification/Notification";
+import EventHelper, {EventName} from "../utils/EventHelper";
 
 type Todo = {
   id: number;
   desc: string;
   state: string;
 };
+
+const displaySuccessNotification = () =>
+ EventHelper.trigger(EventName.NOTIFY, {
+  type: NotificationType.SUCCESS,
+  message: 'Todo Modifié',
+ });
 
 const TodoList = () => {
   const [todos, setTodos] = useState([]);
@@ -44,6 +52,8 @@ export const UseEffectComplete = () => {
   return (
     <div>
       <TodoList />
+     <button onClick={() => displaySuccessNotification()}> Trigger notification </button>
+      <Notification />
     </div>
   );
 };

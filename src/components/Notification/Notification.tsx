@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import EventHelper, { EventName } from "../../utils/EventHelper";
 import "./notification.scss";
 
@@ -7,7 +7,6 @@ export enum NotificationType {
 }
 
 const TIMEOUT = 5000;
-const DEFAULT_NOTIFICATION = { message: NotificationType.SUCCESS };
 
 interface NotificationContentType {
   message?: string;
@@ -15,40 +14,28 @@ interface NotificationContentType {
 
 const Notification = () => {
   const [notificationContent, setNotificationContent] =
-    useState<NotificationContentType | null>(DEFAULT_NOTIFICATION);
+    useState<NotificationContentType | null>(null);
 
   const resetNotification = () => {
-    setNotificationContent(DEFAULT_NOTIFICATION);
+    setNotificationContent(null);
   };
 
-  const triggerNotification = useCallback((event) => {
-    resetNotification();
-
-    if (event) {
-      setNotificationContent({
-        message: event.detail.messageTranslationKey
-          ? event.detail.messageTranslationKey
-          : undefined,
-      });
-    }
-  }, []);
-
   useEffect(() => {
-    EventHelper.on(EventName.NOTIFY, triggerNotification);
+    EventHelper.on(EventName.NOTIFY, () => {setNotificationContent({message: 'SUCCESS'})});
 
     const notificationTimeout = setTimeout(() => {
       resetNotification();
     }, TIMEOUT);
 
     return () => {
-      EventHelper.off(EventName.NOTIFY, triggerNotification);
+      EventHelper.off(EventName.NOTIFY, () => {setNotificationContent({message: 'SUCCESS'})});
       clearTimeout(notificationTimeout);
     };
   });
 
   return notificationContent?.message ? (
-    <aside data-testid="notification" className="notification-container">
-      <div className="alert">{notificationContent.message}</div>
+    <aside className="notification-container">
+      <div className="notification-container__alert-success">{notificationContent.message}</div>
     </aside>
   ) : null;
 };
