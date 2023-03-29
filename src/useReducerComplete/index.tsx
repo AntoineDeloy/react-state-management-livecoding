@@ -4,6 +4,7 @@ enum TodoActionEnum {
   ADD,
   EDIT_NEW,
   TOGGLE_STATE,
+  DELETE,
 }
 
 type Todo = {
@@ -20,7 +21,7 @@ type TodoState = {
 const initialTodos: Array<Todo> = [
   { id: 0, desc: "Learn React", done: true },
   { id: 1, desc: "Write code", done: false },
-  { id: 2, desc: "Go shooping", done: false },
+  { id: 2, desc: "Go shopping", done: false },
 ];
 
 const todosReducer = (
@@ -57,13 +58,21 @@ const todosReducer = (
         }),
       };
     }
+    case TodoActionEnum.DELETE: {
+      return {
+        ...state,
+        todos: state.todos.filter(todo => {
+          return todo.id !== action.payload?.id;
+        })
+      }
+    }
     default: {
       throw Error("Unknown action: " + action.type);
     }
   }
 };
 
-export const UseRedcuerComplete = () => {
+export const UseReducerComplete = () => {
   const [todosState, dispatchTodos] = useReducer(todosReducer, {
     newTodo: "",
     todos: initialTodos,
@@ -101,6 +110,9 @@ export const UseRedcuerComplete = () => {
               }}
             ></input>
             {todo.desc}
+            <button onClick={() => dispatchTodos({ type: TodoActionEnum.DELETE, payload: todo })}>
+              Delete
+            </button>
           </div>
         ))}
       </div>
